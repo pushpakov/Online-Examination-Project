@@ -55,11 +55,14 @@ const updateQues = async function (req, res) {
 
         let files = req.files;
         let data = req.body;
-
         if (!isValidBody(data)) {
-            if (!isValidBody(files)) {
+            if (files==undefined) {
                 return res.status(400).send({ status: false, message: "Please Enter Data" });
             }
+        }
+
+        if (files!==undefined & files.length==0) {
+            return res.status(400).send({ status: false, message: "Please Enter Data" });
         }
 
         let arr = (files.map(x => x.fieldname));
